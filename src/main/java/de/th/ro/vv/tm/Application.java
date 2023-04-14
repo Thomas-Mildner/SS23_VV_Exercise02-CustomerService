@@ -5,10 +5,12 @@ import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.info.*;
 
 @OpenAPIDefinition(
-    info = @Info(
-            title = "Customer Service",
-            version = "1.0"
-    )
+        info = @Info(
+                title = "Customer Service",
+                version = "1.0",
+                description = "Customer service to manage all customer operations",
+                contact = @Contact(url = "https://hub.docker.com/r/vvthromildner/ss23_exercise02_customerservice", name = "Available Docker Image")
+        )
 )
 public class Application {
 
