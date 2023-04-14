@@ -1,7 +1,6 @@
 FROM gradle:7-jdk-alpine AS build
 MAINTAINER Thomas Mildner
-COPY --chown=gradle:gradle src /home/gradle/src
-WORKDIR /home/gradle/src
+COPY . .
 RUN gradle assemble
 
 FROM openjdk:17-alpine
