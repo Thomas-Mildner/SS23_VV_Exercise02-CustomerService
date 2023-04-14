@@ -1,0 +1,11 @@
+services:
+  - docker:dind
+
+docker_build:
+  image: docker:latest
+  stage: build
+  before_script:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
+  script:  
+    - docker build src/$ProjectName/ --tag vvthromildner/$DockerProjectName:$(date +%s) --tag vvthromildner/$DockerProjectName:latest 
+    - docker push vvthromildner/$DockerProjectName -a
