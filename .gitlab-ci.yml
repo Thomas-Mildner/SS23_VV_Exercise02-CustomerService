@@ -1,6 +1,45 @@
 services:
   - docker:dind
 
+image: eclipse-temurin:17
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  before_script:
+    - GRADLE_USER_HOME="$(pwd)/.gradle"
+      - export GRADLE_USER_HOME
+      build:
+        stage: build
+          script: ./gradlew --build-cache assemble
+            cache:
+                key: "$CI_COMMIT_REF_NAME"
+                    policy: push
+                        paths:
+                              - build
+                                    - .gradle
+                                    test:
+                                      stage: test
+                                        script: ./gradlew check
+                                          cache:
+                                              key: "$CI_COMMIT_REF_NAME"
+                                                  policy: pull
+                                                      paths:
+                                                            - build
+                                                                  - .gradle
+                                                                  package:
+                                                                    stage: deploy
+                                                                      script: ./gradlew build
+                                                                        artifacts:
+                                                                            paths:
+                                                                                  - build/libs/*-all.jar
+                                                                                    cache:
+                                                                                        key: "$CI_COMMIT_REF_NAME"
+                                                                                            policy: pull
+                                                                                                paths:
+                                                                                                      - build
+                                                                                                            - .gradle
+
+
+
 docker_build:
   image: docker:latest
   stage: build
