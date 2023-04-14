@@ -3,7 +3,7 @@ plugins {
     id("io.micronaut.application") version "3.7.8"
 }
 
-version = "0.1"
+version = "1.0"
 group = "de.th.ro.vv.tm"
 
 repositories {
