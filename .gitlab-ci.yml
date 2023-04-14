@@ -7,5 +7,5 @@ docker_build:
   before_script:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
   script:  
-    - docker build src/$ProjectName/ --tag vvthromildner/$DockerProjectName:$(date +%s) --tag vvthromildner/$DockerProjectName:latest 
+    - docker build src/. --tag vvthromildner/$DockerProjectName:$(date +%s) --tag vvthromildner/$DockerProjectName:latest
     - docker push vvthromildner/$DockerProjectName -a
