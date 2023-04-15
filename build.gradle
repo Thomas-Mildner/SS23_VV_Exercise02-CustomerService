@@ -42,7 +42,7 @@ tasks.named("dockerBuild") {
 }
 
 tasks.named("dockerBuildNative") {
-    images = ["${System.env.DOCKER_IMAGE ?: project.name}:native-latest", " ${System.env.DOCKER_IMAGE ?: project.name}: native-${getDate()}"]
+    images = ["${System.env.DOCKER_IMAGE ?: project.name}:native-latest", "${System.env.DOCKER_IMAGE ?: project.name}:native-${getDate()}"]
 }
 
 
