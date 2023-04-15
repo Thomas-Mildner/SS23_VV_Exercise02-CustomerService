@@ -1,3 +1,5 @@
+[![.github/workflows/graalvm.yml](https://github.com/Thomas-Mildner/SS23_VV_Exercise02-CustomerService/actions/workflows/graalvm.yml/badge.svg)](https://github.com/Thomas-Mildner/SS23_VV_Exercise02-CustomerService/actions/workflows/graalvm.yml)
+
 # Customer Service
 
 This repository will be used in Exercise02 in SS23. <br/>
