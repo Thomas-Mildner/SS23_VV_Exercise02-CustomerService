@@ -4,6 +4,7 @@ services:
 docker_build:
   image: docker:latest
   stage: build
+  when: manual # currently disabled - publish via GitHub
   before_script:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
   script:  

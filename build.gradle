@@ -37,12 +37,8 @@ def getDate() {
 }
 
 
-tasks.named("dockerBuild") {
-    images = ["${System.env.DOCKER_IMAGE ?: project.name}:latest", "${System.env.DOCKER_IMAGE ?: project.name}:${getDate()}"]
-}
-
 tasks.named("dockerBuildNative") {
-    images = ["${System.env.DOCKER_IMAGE ?: project.name}:native-latest", "${System.env.DOCKER_IMAGE ?: project.name}:native-${getDate()}"]
+    images = ["${System.env.DOCKER_IMAGE ?: project.name}:latest", "${System.env.DOCKER_IMAGE ?: project.name}:v${getDate()}"]
 }
 
 

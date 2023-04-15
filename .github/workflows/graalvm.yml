@@ -30,4 +30,3 @@ jobs:
         run: |
           export DOCKER_IMAGE=`echo "vvthromildner/ss23_exercise02_customer_service" | sed -e 's#//#/#' -e 's#^/##'`
           gradle check dockerPushNative --no-daemon
-          gradle check dockerPush --no-daemon
