@@ -1,6 +1,3 @@
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("io.micronaut.application") version "3.7.8"
@@ -33,15 +30,19 @@ java {
     targetCompatibility = JavaVersion.toVersion("17")
 }
 
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmmss')
+    return formattedDate
+}
 
-tasks {
-    dockerBuild {
-        images = ["${System.env.DOCKER_IMAGE ?: project.name}:latest", "${System.env.DOCKER_IMAGE ?: project.name}:${getDate()}"]
-    }
 
-    dockerBuildNative {
-        images = ["${System.env.DOCKER_IMAGE ?: project.name}:native-latest, "${System.env.DOCKER_IMAGE ?: project.name}:"native-${getDate()}"]
-    }
+tasks.named("dockerBuild") {
+    images = ["${System.env.DOCKER_IMAGE ?: project.name}:latest", "${System.env.DOCKER_IMAGE ?: project.name}:${getDate()}"]
+}
+
+tasks.named("dockerBuildNative") {
+    images = ["${System.env.DOCKER_IMAGE ?: project.name}:native-latest", " ${System.env.DOCKER_IMAGE ?: project.name}: native-${getDate()}"]
 }
 
 
@@ -56,10 +57,5 @@ micronaut {
 }
 
 
-def getDate() {
-    def date = new Date()
-    def formattedDate = date.format('yyyyMMddHHmmss')
-    return formattedDate
-}
 
 
