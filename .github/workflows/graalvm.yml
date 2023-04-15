@@ -25,8 +25,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build And Push Docker Image
-        env:      
+        env:
           TESTCONTAINERS_RYUK_DISABLED: true
         run: |
           export DOCKER_IMAGE=`echo "vvthromildner/ss23_exercise02_customer_service" | sed -e 's#//#/#' -e 's#^/##'`
           gradle check dockerPushNative --no-daemon
+          gradle check dockerPush --no-daemon
