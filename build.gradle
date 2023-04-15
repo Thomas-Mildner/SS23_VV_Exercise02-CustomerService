@@ -22,7 +22,6 @@ dependencies {
     runtimeOnly("org.apache.logging.log4j:log4j-core")
     runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl")
     implementation("io.micronaut:micronaut-validation")
-
 }
 
 
@@ -33,6 +32,18 @@ java {
     sourceCompatibility = JavaVersion.toVersion("17")
     targetCompatibility = JavaVersion.toVersion("17")
 }
+
+
+tasks {
+    dockerBuild {
+        images = ["${System.env.DOCKER_IMAGE ?: project.name}:latest"]
+    }
+
+    dockerBuildNative {
+        images = ["${System.env.DOCKER_IMAGE ?: project.name}:latest"]
+    }
+}
+
 
 graalvmNative.toolchainDetection = false
 micronaut {
