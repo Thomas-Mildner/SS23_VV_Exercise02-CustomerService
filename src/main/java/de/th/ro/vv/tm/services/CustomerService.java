@@ -6,11 +6,9 @@ import de.th.ro.vv.tm.models.dtos.CustomerDto;
 import de.th.ro.vv.tm.models.requestModels.CustomerRequestModel;
 import de.th.ro.vv.tm.validators.CustomerValidator;
 import io.micronaut.context.annotation.Bean;
-import net.datafaker.Faker;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Bean
 public class CustomerService {
