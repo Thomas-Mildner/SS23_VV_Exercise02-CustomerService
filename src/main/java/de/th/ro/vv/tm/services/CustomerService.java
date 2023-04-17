@@ -24,17 +24,7 @@ public class CustomerService {
     }
 
     public List<?> getCustomers(int maxCustomers) {
-        var faker = new Faker(new Locale("de"));
-        List<CustomerDto> fakeSequence = faker.collection(() -> new CustomerDto(UUID.randomUUID(),
-                        faker.name().firstName(), faker.name().lastName(),
-                        faker.internet().emailAddress(), faker.company().name(), faker.date().birthday()))
-                .maxLen(maxCustomers - CustomerDataStore.size())
-                .generate();
-
-
-        return Stream.of(fakeSequence, CustomerDataStore.values().stream().toList())
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+        return CustomerDataStore.values().stream().limit(maxCustomers).collect(Collectors.toList());
     }
 
     public Optional<CustomerDto> getCustomer(UUID customerId) {

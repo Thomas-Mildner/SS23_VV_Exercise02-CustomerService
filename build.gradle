@@ -19,8 +19,6 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
-    implementation("net.datafaker:datafaker:1.8.1")
-
 }
 
 
@@ -39,7 +37,7 @@ def getDate() {
 }
 
 
-tasks.named("dockerBuild") {
+tasks.named("dockerBuildNative") {
     images = ["${System.env.DOCKER_IMAGE ?: project.name}:latest", "${System.env.DOCKER_IMAGE ?: project.name}:v${getDate()}"]
 }
 
