@@ -10,7 +10,6 @@ import net.datafaker.Faker;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Bean
@@ -25,12 +24,15 @@ public class CustomerService {
     }
 
     public List<?> getCustomers(int maxCustomers) {
-        var customers = new ArrayList<>();
-        IntStream.rangeClosed(1, maxCustomers - CustomerDataStore.size()).boxed().toList().parallelStream().forEach(t -> {
-            customers.add(generateCustomer());
-        });
+        var faker = new Faker(new Locale("de"));
+        List<CustomerDto> fakeSequence = faker.collection(() -> new CustomerDto(UUID.randomUUID(),
+                        faker.name().firstName(), faker.name().lastName(),
+                        faker.internet().emailAddress(), faker.company().name(), faker.date().birthday()))
+                .maxLen(maxCustomers - CustomerDataStore.size())
+                .generate();
 
-        return Stream.of(customers, CustomerDataStore.values().stream().toList())
+
+        return Stream.of(fakeSequence, CustomerDataStore.values().stream().toList())
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
@@ -55,21 +57,4 @@ public class CustomerService {
         CustomerDataStore.put(customerDto.customerId(), customerDto);
         return new CustomerValidationModel(true, customerDto);
     }
-
-
-    private CustomerDto generateCustomer() {
-
-        var faker = new Faker(new Locale("de"));
-        var random = new Random();
-        return new CustomerDtoBuilder()
-                .setCustomerId(UUID.randomUUID())
-                .setFirstName(faker.name().firstName())
-                .setLastName(faker.name().lastName())
-                .setEmail(faker.internet().emailAddress())
-                .setCompanyName(random.nextBoolean() ? faker.company().name() : "")
-                .setBirthday(faker.date().birthday())
-                .createCustomerDto();
-    }
-
-
 }
