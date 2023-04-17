@@ -1,13 +1,12 @@
 package de.th.ro.vv.tm.services;
 
-import com.github.javafaker.Faker;
-import de.th.ro.vv.tm.models.dtos.CustomerDto;
+import de.th.ro.vv.tm.models.CustomerValidationModel;
 import de.th.ro.vv.tm.models.builder.CustomerDtoBuilder;
+import de.th.ro.vv.tm.models.dtos.CustomerDto;
 import de.th.ro.vv.tm.models.requestModels.CustomerRequestModel;
 import de.th.ro.vv.tm.validators.CustomerValidator;
 import io.micronaut.context.annotation.Bean;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
+import net.datafaker.Faker;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,10 +39,10 @@ public class CustomerService {
         return Optional.ofNullable(CustomerDataStore.get(customerId));
     }
 
-    public Pair<Boolean, CustomerDto> saveCustomer(CustomerRequestModel customer) {
+    public CustomerValidationModel saveCustomer(CustomerRequestModel customer) {
 
         if (!customerValidator.validateCustomer(customer)) {
-            return new ImmutablePair <>(false, null);
+            return new CustomerValidationModel(false, null);
         }
 
         var customerDto = new CustomerDtoBuilder().setCustomerId(UUID.randomUUID())
@@ -54,7 +53,7 @@ public class CustomerService {
                 .setBirthday(customer.birthday())
                 .createCustomerDto();
         CustomerDataStore.put(customerDto.customerId(), customerDto);
-        return new ImmutablePair<>(true, customerDto);
+        return new CustomerValidationModel(true, customerDto);
     }
 
 

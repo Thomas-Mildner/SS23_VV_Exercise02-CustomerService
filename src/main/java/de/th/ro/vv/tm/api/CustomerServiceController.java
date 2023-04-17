@@ -56,8 +56,8 @@ public class CustomerServiceController {
     @Tag(name = "Customer")
     public MutableHttpResponse<CustomerDto> saveCustomer(@NotNull CustomerRequestModel customer) {
         var saveResult = customerService.saveCustomer(customer);
-        if (saveResult.getKey())
-            return HttpResponse.created(saveResult.getValue());
+        if (saveResult.isValid())
+            return HttpResponse.created(saveResult.customer());
         return HttpResponse.badRequest();
     }
 }
